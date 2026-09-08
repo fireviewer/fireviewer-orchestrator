@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fireviewer-orchestrator"
+version = "0.1.0"
+description = "Stateless stage execution and dispatch over durable backend state."
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = "AGPL-3.0-or-later"
+dependencies = [
+  "fireviewer-contracts==0.1.0",
+  "fireviewer-evidence-ingestion==0.1.0",
+  "fireviewer-vision-runtime==0.1.0",
+  "fireviewer-geolocation==0.1.0",
+  "fireviewer-evidence-supervisor==0.1.0",
+  "httpx==0.28.1",
+  "Pillow==12.3.0"
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.0.3", "ruff==0.15.21", "jsonschema==4.26.0"]
+"runtime" = [
+  "accelerate==1.14.0",
+  "einops==0.8.2",
+  "huggingface-hub==1.24.0",
+  "httpx==0.28.1",
+  "pillow==12.3.0",
+  "numpy==2.4.6",
+  "opencv-python-headless==4.13.0.92",
+  "runpod==1.10.1",
+  "safetensors==0.8.0",
+  "transformers==5.14.1",
+  "vercel==0.7.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["*.json", "*.yaml", "*.yml", "*.txt", "*.md", "py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers"
+
+[project.scripts]
+fireviewer-orchestrator = "fireviewer_orchestrator.handler:main"

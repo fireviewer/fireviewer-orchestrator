@@ -1,0 +1,7 @@
+# CPU-only code tests; no model download or corpus.
+fireviewer-orchestrator==0.1.0
+pytest==9.0.3
+torch==2.13.0+cpu
+opencv-python-headless==4.13.0.92
+transformers==4.57.6
+psutil==7.2.2
