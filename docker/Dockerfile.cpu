@@ -1,0 +1,14 @@
+FROM python:3.13-slim-trixie@sha256:ffb752e139c0a19692a43af8d8523b274222dd68eebad5d583b45c2201c6e30a
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
+RUN apt-get update && apt-get install -y --no-install-recommends libexpat1=2.8.3-1~deb13u1 && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY wheels /wheels
+COPY requirements.linux.lock.txt /tmp/requirements.linux.lock.txt
+RUN pip install --require-hashes --find-links /wheels -r /tmp/requirements.linux.lock.txt
+RUN useradd --uid 10001 --create-home worker && mkdir -p /app/data && chown worker /app/data
+ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 PORT=8080
+RUN python -c "import cv2, rasterio, h5py; import azure.identity; import fireviewer_orchestrator.event_pipeline; import fireviewer_evidence_ingestion.mvp.research.source_acquisition_service"
+USER worker
+EXPOSE 8080
+ENTRYPOINT ["python", "-m"]
+CMD ["fireviewer_evidence_ingestion.mvp.research.source_acquisition_service"]
