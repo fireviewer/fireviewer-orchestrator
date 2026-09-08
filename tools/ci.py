@@ -134,7 +134,7 @@ def verify() -> None:
     else:
         raise SystemExit("Unknown verification kind")
     artifacts = [{"file": path.name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-                  "bytes": path.stat().st_size} for path in sorted(dist.iterdir()) if path.is_file()]
+                  "bytes": path.stat().st_size} for path in sorted(dist.iterdir()) if path.is_file() and not path.name.startswith(".")]
     manifest = {"version": version, "commit": subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip(),
                 "kind": kind, "artifacts": artifacts, "validation": "installed-artifact-tests-passed",
                 "limits": CONFIG.get("limits", [])}
@@ -157,7 +157,7 @@ def release() -> None:
     # No --clobber: an accepted version is never replaced by a repeated run.
     run("gh", "release", "create", tag, "--verify-tag", "--title", tag,
         "--notes-file", str(ROOT / "dist/RELEASE.md"),
-        *[str(p) for p in (ROOT / "dist").iterdir() if p.is_file()])
+        *[str(p) for p in (ROOT / "dist").iterdir() if p.is_file() and not p.name.startswith(".")])
 
 
 if __name__ == "__main__":
