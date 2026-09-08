@@ -52,7 +52,7 @@ jobs:
           retention-days: 14
   publish:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: validate
+    needs: [validate, container]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -68,3 +68,33 @@ jobs:
           path: dist/
       - name: Publish the tested version without replacing an existing release
         run: python tools/ci.py release
+  container:
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      packages: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: release
+          path: dist/
+      - name: Build the tested source without deploying
+        if: "!startsWith(github.ref, 'refs/tags/v')"
+        run: python tools/container.py
+      - name: Publish a versioned image after qualification
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: python tools/container.py --push
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: container-inputs
+          path: ci-results/container-inputs.json
+          retention-days: 14

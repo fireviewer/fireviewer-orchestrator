@@ -51,5 +51,12 @@
   "producer_ui": false,
   "limits": [
     "CPU/offline code qualification only; no models, GPU, deployed services or native Unreal qualification."
-  ]
+  ],
+  "container": {
+    "recipe": "docker/Dockerfile.cpu",
+    "requirements": "docker/requirements.cpu.linux.lock.txt",
+    "source_paths": [],
+    "image": "ghcr.io/fireviewer/fireviewer-workers-cpu",
+    "repository": "fireviewer/fireviewer-orchestrator"
+  }
 }
