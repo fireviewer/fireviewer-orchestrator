@@ -1,15 +1,17 @@
 # fireviewer-orchestrator
 
+> **Source active FV · private.** Exécution, dispatch, reprises et idempotence des agents. Voir [où travailler, quoi commiter et comment reprendre](ORGANISATION.md).
+
 Stateless stage execution and dispatch over durable backend state.
 
-Python package: `fireviewer_orchestrator`. Version: `0.1.0`.
+Python package: `fireviewer_orchestrator`. Version: `0.1.1`.
 
 ## Installation
 
 Install the versioned release wheels (including private FireViewer dependencies) from the release bundle. No sibling source checkout is required.
 
 ```sh
-python -m pip install --find-links /path/to/release/wheels fireviewer-orchestrator==0.1.0
+python -m pip install --find-links /path/to/release/wheels fireviewer-orchestrator==0.1.1
 python -m pytest tests -q
 ```
 
