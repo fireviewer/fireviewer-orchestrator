@@ -1,5 +1,17 @@
 # fireviewer-orchestrator
 
+## Repères documentaires — 19 septembre 2026
+
+- **Rôle :** Coordination stateless de l’exécution des stades sur un état durable possédé par le backend.
+- **Statut :** Actif — package v0.1.1.
+- **Entrées :** Jobs et contexte backend, disponibilité des providers/composants.
+- **Sorties :** Dispatch, retries, receipts et appels aux composants.
+- **Limites :** Ne pas créer une deuxième base de vérité, ni dupliquer Part.4, ni ajouter un agent permanent sans besoin démontré.
+
+[Fiche du dépôt](https://github.com/fireviewer/Fireviewer_doc/blob/main/docs/public/repositories/fireviewer-orchestrator.md) · [Architecture](https://github.com/fireviewer/Fireviewer_doc/blob/main/docs/public/ARCHITECTURE.md) · [Statuts et vocabulaire](https://github.com/fireviewer/Fireviewer_doc/blob/main/docs/public/STATUTS_ET_VOCABULAIRE.md).
+
+Cette revue documentaire ne renouvelle aucun test ni aucune réception. Les procédures, versions et preuves techniques ci-dessous conservent leur périmètre et leur date.
+
 > **Source active FV · private.** Exécution, dispatch, reprises et idempotence des agents. Voir [où travailler, quoi commiter et comment reprendre](ORGANISATION.md).
 
 Stateless stage execution and dispatch over durable backend state.
