@@ -180,6 +180,12 @@ def handle_job(
             "boot_ms": BOOT_READY_MS,
         }
     requested_schema = raw_input.get("schema_version", "1.0")
+    if requested_schema == "lab-bonsai-integration-1" and os.getenv("FW_ENABLE_LAB_PROBES") == "true":
+        from fireviewer_orchestrator.lab_probe import run_probe
+        settings = WorkerSettings.from_environment()
+        with _GPU_SESSION_LOCK:
+            return run_probe(raw_input, _runtime_factory(settings))
+
     if requested_schema == "event-2.0":
         from fireviewer_vision_runtime.event_perception import (
             event_has_working_urls,

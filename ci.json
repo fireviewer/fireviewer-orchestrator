@@ -8,7 +8,11 @@
       "asset": "fireviewer_contracts-0.1.1-py3-none-any.whl",
       "sha256": "6e50fa64c1f062dfc256c88f1c8c1b2307e0960ebbed1d47a5755708087ccb51",
       "upstream_repository": "fireviewer/fireviewer-contracts",
-      "attribution": "Original licence and author notices inside artifact"
+      "attribution": "Original licence and author notices inside artifact",
+      "source_commit": "d2be4ba408812286a30c9c6207d29ef00bd25ced",
+      "source_asset": "fireviewer_contracts-0.1.2-py3-none-any.whl",
+      "previous_requirement": "fireviewer-contracts==0.1.1",
+      "source_requirement": "fireviewer-contracts==0.1.2"
     },
     {
       "repository": "fireviewer/fireviewer-orchestrator",
@@ -40,7 +44,8 @@
       "asset": "fireviewer_vision_runtime-0.1.1-py3-none-any.whl",
       "sha256": "8191b10ad17450edb5a06e215d8717fd2da83f8ca51de028b255142b0522e158",
       "upstream_repository": "fireviewer/fireviewer-vision-runtime",
-      "attribution": "Original licence and author notices inside artifact"
+      "attribution": "Original licence and author notices inside artifact",
+      "source_commit": "60756762d6c0bb6a6be9aa76ebdeec168bb25d56"
     }
   ],
   "tests": [

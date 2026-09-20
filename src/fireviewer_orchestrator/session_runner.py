@@ -472,10 +472,12 @@ class SessionRunner:
                 )
             output_payload = _candidate_payload(patches)
             status = "succeeded"
-        except (ModelOutputError, OutputValidationError):
+        except (ModelOutputError, OutputValidationError) as exc:
             error_code = "invalid_model_output"
-        except Exception:
+            print("FV_LAB_DIAGNOSTIC " + __import__("json").dumps(_lab_error_diagnostic(exc)), flush=True)
+        except Exception as exc:
             error_code = "model_runtime_error"
+            print("FV_LAB_DIAGNOSTIC " + __import__("json").dumps(_lab_error_diagnostic(exc)), flush=True)
         finally:
             peak_vram = self.memory.peak_vram_bytes()
             self.memory.release(adapter)
@@ -579,8 +581,9 @@ class SessionRunner:
             status = "succeeded"
         except ModelOutputError:
             error_code = "invalid_model_output"
-        except Exception:
+        except Exception as exc:
             error_code = "model_runtime_error"
+            print("FV_LAB_DIAGNOSTIC " + __import__("json").dumps(_lab_error_diagnostic(exc)), flush=True)
         finally:
             peak_vram = self.memory.peak_vram_bytes()
             if adapter is not None:
@@ -914,3 +917,13 @@ class SessionRunner:
             consensus_results=tuple(consensus_results),
             contract_digest=self.contracts.digest,
         )
+
+
+def _lab_error_diagnostic(exc):
+    """Keep diagnostics structural: exception messages can contain credentials/evidence."""
+    import traceback
+    return {"diagnostic": {"exception": type(exc).__name__,
+            "cause_type": type(exc.__cause__).__name__ if exc.__cause__ else None,
+            "frames": [{"file": f.filename.rsplit("/", 1)[-1], "line": f.lineno,
+                        "function": f.name}
+                       for f in traceback.extract_tb(exc.__traceback__)[-5:]]}}
