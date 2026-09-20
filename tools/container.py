@@ -9,7 +9,7 @@ def run(*args,**kwargs):return subprocess.run(args,check=True,**kwargs)
 def copy(source,target):target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,target)
 
 def prepare():
-    from ci import private_dependencies
+    from ci import private_dependencies, effective_requirements
     dependencies=private_dependencies()
     target=ROOT/'.ci/container'
     if target.exists():raise SystemExit('Existing container context preserved; use a fresh checkout')
@@ -38,7 +38,7 @@ def prepare():
         wheels=list((ROOT/'dist').glob('*.whl'))
         if len(wheels)!=1:raise SystemExit('Build and test the checkout wheel first')
         own=wheels[0];copy(own,target/'wheels'/own.name)
-        locked=(ROOT/CONFIG['requirements']).read_text()
+        locked=effective_requirements((ROOT/CONFIG['requirements']).read_text())
         pattern=r'^'+re.escape(project['name'])+r'==[^\n]*(?:\n[ \t]+[^\n]*)*\n?'
         locked=re.sub(pattern,'',locked,flags=re.M)
         locked+='\n'+project['name']+'=='+project['version']+' \\\n    --hash=sha256:'+hashlib.sha256(own.read_bytes()).hexdigest()+'\n'

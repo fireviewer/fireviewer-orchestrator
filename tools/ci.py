@@ -65,6 +65,16 @@ def private_dependencies() -> Path:
     return cache
 
 
+def effective_requirements(source: str) -> str:
+    """Use hashes and versions of wheels built from immutable source dependencies."""
+    for entry in CONFIG["dependencies"]:
+        if entry.get("source_commit"):
+            source = source.replace(entry["sha256"], entry["built_sha256"])
+            if entry.get("source_requirement"):
+                source = source.replace(entry["previous_requirement"], entry["source_requirement"])
+    return source
+
+
 def audit_tracked_files() -> None:
     names = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode().split("\0")
     for name in filter(None, names):
@@ -98,12 +108,7 @@ def verify() -> None:
         project = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]
         # Old locks contain the previously released component. Remove ONLY self;
         # the newly built wheel must be the component exercised by this checkout.
-        source = (ROOT / CONFIG["requirements"]).read_text()
-        for entry in CONFIG["dependencies"]:
-            if entry.get("source_commit"):
-                source = source.replace(entry["sha256"], entry["built_sha256"])
-                if entry.get("source_requirement"):
-                    source = source.replace(entry["previous_requirement"], entry["source_requirement"])
+        source = effective_requirements((ROOT / CONFIG["requirements"]).read_text())
         blocks = re.split(r"(?=^[A-Za-z0-9])", source, flags=re.M)
         own_name = re.sub(r"[-_.]+", "-", project["name"]).lower()
         filtered = "".join(block for block in blocks if not (
