@@ -30,3 +30,5 @@ ci-results/
 playwright-report/
 
 test-results/
+
+!docs/INCIDENT_REVISIONS.md

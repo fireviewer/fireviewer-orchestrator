@@ -64,3 +64,7 @@ Cette ouverture porte sur le code, son historique et les artefacts de développe
 ## Migration Bonsaï 2
 
 Voir [le changement du juge et son état de validation](docs/BONSAI2.md).
+
+## Migration par révisions d’incident
+
+La version candidate 0.1.2 introduit les révisions temporelles documentées dans [le guide de migration](docs/INCIDENT_REVISIONS.md). Les contrôles CPU ne qualifient pas les modèles, la production ou le rendu Unreal. La compatibilité quotidienne reste maintenue.

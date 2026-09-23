@@ -209,18 +209,18 @@ defusedxml==0.7.1 \
 filelock==3.32.5 \
     --hash=sha256:142cd9fa77a872c5e78c62329a0d15278fadc686eb89e760017968961a4fd6b2 \
     --hash=sha256:f6a6a28f743f9b95ce19db5abe0f376f75eb56517dff21e1a4751e2657d3e83d
-fireviewer-contracts==0.1.1 \
-    --hash=sha256:6e50fa64c1f062dfc256c88f1c8c1b2307e0960ebbed1d47a5755708087ccb51
-fireviewer-evidence-ingestion==0.1.1 \
-    --hash=sha256:ce6f2a412eb57fe17929164b2c3306f2f99c6a324926ba3df592ae5dc1238bee
-fireviewer-evidence-supervisor==0.1.1 \
-    --hash=sha256:40c3c4428b57105d656b2f815f14c1bb436f2074bdfef95c1d01636885a2d6eb
-fireviewer-geolocation==0.1.1 \
-    --hash=sha256:2a6a4661207f8e06472df32f2659693f0abf28ce756f7955b9804bd8731d1362
+fireviewer-contracts==0.1.3 \
+    --hash=sha256:80e7d2ce1521ec649179a0ca23ba6f59b0cc957ec72f325c2a996f174717bdd6
+fireviewer-evidence-ingestion==0.1.2 \
+    --hash=sha256:de30abde0759fadb209ddec15f6a2a1d23e01a22988e3b2945bfaa5120f2c5f6
+fireviewer-evidence-supervisor==0.1.2 \
+    --hash=sha256:65121b5053032444b2f10a4934dfa12d2cfc9ee17320a5c15dd9c3dd18be2f7b
+fireviewer-geolocation==0.1.2 \
+    --hash=sha256:18537f866b48394e6a6a214848c2e22afb87d2d6b1614d2facdae3d327c26b79
 fireviewer-orchestrator==0.1.0 \
     --hash=sha256:af65e84880e632fee68eb82e92ca91df89a4785dc9fea0a83821018fa997d8a9
-fireviewer-vision-runtime==0.1.1 \
-    --hash=sha256:8191b10ad17450edb5a06e215d8717fd2da83f8ca51de028b255142b0522e158
+fireviewer-vision-runtime==0.1.2 \
+    --hash=sha256:bf0c8030a4d48c4f6afce370fb459ef190839c89fee9228f84b4ed9d3d85caf2
 fsspec==2026.2.0 \
     --hash=sha256:6544e34b16869f5aacd5b90bdf1a71acb37792ea3ddf6125ee69a22a53fb8bff \
     --hash=sha256:98de475b5cb3bd66bedd5c4679e87b4fdfe1a3bf4d707b151b3c07e58c9a2437
